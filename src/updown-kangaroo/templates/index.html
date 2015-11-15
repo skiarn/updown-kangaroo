@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <title>Down kangaroo</title>
+    <style>
+      input { display: block; }
+      ul    { list-style: none; }
+    </style>
+  </head>
+  <body>
+    <h1>Host:{{.Host}}</h1>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+    $(function(){
+      var ws = null;
+      if (!window["WebSocket"]) {
+        alert("Error: Your browser does not support web sockets.")
+      } else {
+        console.log("creating ws -> ws://{{.Host}}/out")
+        ws = new WebSocket("ws://{{.Host}}/out");
+        ws.onmessage = function(e) {
+          console.log("got data:" + e.data);
+        };
+        ws.onerror = function(e) {
+            console.log("got error:", e);
+        };
+        ws.onclose = function(e) {
+            console.log("got close:", e);
+        };
+      }
+    });
+
+
+    </script>
+
+  </body>
+</html>
